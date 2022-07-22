@@ -1,3 +1,4 @@
+import dotenv from "dotenv";
 import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
@@ -11,13 +12,14 @@ const PORT = 5000;
 app.use(bodyParser.json({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
+dotenv.config();
 
 app.use("/users", userRoutes);
 app.use("/conversation", conversationRoutes);
 app.use("/message", messageRoutes);
 
 const mongoURL =
-  "mongodb+srv://tushargupta:tushar27@socialmediamerncluster.d7rjp.mongodb.net/chatDB?retryWrites=true&w=majority";
+  process.env.MONGO_URL
 
 mongoose
   .connect(mongoURL, {
